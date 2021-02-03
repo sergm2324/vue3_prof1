@@ -45,7 +45,13 @@ export default {
   setup() {
     const store = useStore()
     const loading = ref(false)
-    const products = computed(() => store.getters['products/getProducts'])
+    const products = computed(() => store.getters['products/getProducts']
+        .filter(request => {
+          if (request.count > 0) {
+            return request
+          }
+        })
+    )
       let sum = computed(() => {
         loading.value = true
         let all = 0
