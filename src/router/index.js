@@ -9,7 +9,7 @@ const routes = [
     component: Shop,
     meta: {
       layout: 'main',
-      auth: true
+      auth: false
     }
   },
   {
@@ -18,7 +18,7 @@ const routes = [
     component: () => import('../views/Cart.vue'),
     meta: {
       layout: 'main',
-      auth: true
+      auth: false
     }
   },
   {

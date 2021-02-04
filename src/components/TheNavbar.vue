@@ -9,9 +9,6 @@
       <li>
         <router-link to="/cart">Корзина</router-link>
       </li>
-      <li>
-        <a href="#" @click.prevent="logout">Выход</a>
-      </li>
     </ul>
   </nav>
 </template>
@@ -26,10 +23,10 @@ export default {
     const store = useStore()
 
     return {
-      logout: () => {
-        store.commit('auth/logout')
-        router.push('/auth')
-      }
+      // logout: () => {
+      //   store.commit('auth/logout')
+      //   router.push('/auth')
+      // }
     }
   }
 }

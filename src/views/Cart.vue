@@ -32,7 +32,7 @@
 
 <script>
 import AppPage from '../components/ui/AppPage'
-import {ref, computed} from 'vue'
+import {ref, computed, onMounted} from 'vue'
 import {useStore} from 'vuex'
 import {currency} from '../utils/currency'
 import AppLoader from '../components/ui/AppLoader'
@@ -45,6 +45,11 @@ export default {
   setup() {
     const store = useStore()
     const loading = ref(false)
+    onMounted(async () => {
+      loading.value = true
+      await store.dispatch('products/loadAllProducts')
+      loading.value = false
+    })
     const products = computed(() => store.getters['products/getProducts']
         .filter(request => {
           if (request.count > 0) {
@@ -53,12 +58,10 @@ export default {
         })
     )
       let sum = computed(() => {
-        loading.value = true
         let all = 0
         for (let elem of products.value) {
           all += elem.count * elem.price
         }
-        loading.value = false
         return all
       })
 
