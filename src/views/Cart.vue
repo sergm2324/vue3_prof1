@@ -14,9 +14,9 @@
       <tr v-for = "product in products" :key="product.id">
         <td>{{product.title}}</td>
         <td>
-          <button class="btn primary" @click="product.count++">+</button>
+          <button class="btn primary" @click="increment(product.id)">+</button>
           {{product.count}} шт.
-          <button class="btn danger" @click="product.count--">-</button>
+          <button class="btn danger" @click="decrement(product.id)">-</button>
         </td>
         <td>{{ currency(product.price) }}</td>
       </tr>
@@ -32,7 +32,7 @@
 
 <script>
 import AppPage from '../components/ui/AppPage'
-import {ref, computed, onMounted} from 'vue'
+import {ref, computed, onMounted, reactive} from 'vue'
 import {useStore} from 'vuex'
 import {currency} from '../utils/currency'
 import AppLoader from '../components/ui/AppLoader'
@@ -45,31 +45,53 @@ export default {
   setup() {
     const store = useStore()
     const loading = ref(false)
+
     onMounted(async () => {
       loading.value = true
       await store.dispatch('products/loadAllProducts')
       loading.value = false
     })
+
+    const CART = reactive(CART_MODEL)
+
+    let increment = function (id) {
+      CART[id]++
+    }
+
+    let decrement = function (id) {
+      CART[id]--
+    }
+
+    const keys = Object.keys(CART )
     const products = computed(() => store.getters['products/getProducts']
-        .filter(request => {
-          if (request.count > 0) {
-            return request
+        .filter(product => {
+          for(let elem of keys) {
+            if (product.id === elem) {
+              product.count = CART[product.id]
+              return product
+            }
+          }
+        })
+        .filter(product => {
+          if (product.count > 0) {
+            return product
           }
         })
     )
+
       let sum = computed(() => {
-        let all = 0
-        for (let elem of products.value) {
-          all += elem.count * elem.price
-        }
-        return all
-      })
+        return products.value.reduce(function (sumAll, current) {
+          return sumAll + current.count * current.price
+        }, 0)
+    })
 
     return {
       loading,
       currency,
       products,
-      sum
+      sum,
+      increment,
+      decrement
     }
   },
   components: {AppPage, AppLoader}
