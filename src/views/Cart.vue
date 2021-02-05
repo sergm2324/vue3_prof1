@@ -62,7 +62,7 @@ export default {
       CART[id]--
     }
 
-    const keys = Object.keys(CART )
+    const keys = Object.keys(CART)
     const products = computed(() => store.getters['products/getProducts']
         .filter(product => {
           for(let elem of keys) {
