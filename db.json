@@ -13,7 +13,7 @@
     { "id": "11", "count": 16, "title": "Утка", "category": "meat", "price":  890, "img": "https://myaso-1.ru/wp-content/uploads/2020/02/60588.jpg" },
     { "id": "12", "count": 14, "title": "Курица", "category": "meat", "price":  190, "img": "https://produktoff.com/static/upload/goods/21/72421_original.jpg" },
     { "id": "13", "count": 12, "title": "Форель", "category": "fish", "price":  299, "img": "https://images.grocery.yandex.net/2750890/c22be040fc034226aee10d52972db879/300x300.png" },
-    { "id": "14", "count": 0, "title": "Тунец", "category": "fish", "price":  159, "img": "https://images.grocery.yandex.net/2805921/76b31b25e00748b290a44c03e279440c/300x300.png" },
+    { "id": "14", "count": 100, "title": "Тунец", "category": "fish", "price":  159, "img": "https://images.grocery.yandex.net/2805921/76b31b25e00748b290a44c03e279440c/300x300.png" },
     { "id": "15", "count": 13, "title": "Треска", "category": "fish", "price":  429, "img": "https://images.grocery.yandex.net/2805921/b4f8c7add9874804acfae734534e1409/300x300.png" },
     { "id": "16", "count": 10, "title": "Белуга", "category": "fish", "price":  1200, "img": "https://olimp-fish.ru/wp-content/uploads/2020/04/%D1%84%D0%B8%D0%BB%D0%B5-%D1%82%D1%80%D0%B5%D1%81%D0%BA%D0%B8-300x300.jpg" },
     { "id": "17", "count": 12, "title": "Розмарин", "category": "greens", "price":  169, "img": "https://images.grocery.yandex.net/2756334/09072b2d38ff4b9391f89a2b37a83053/300x300.png" },

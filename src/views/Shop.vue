@@ -21,7 +21,7 @@
         </div>
         <h4 class="product-title">{{product.title}}</h4>
         <div class="text-center">
-          <button class="btn">23</button>
+          <button class="btn">{{product.count}}</button>
           <!--          <div class="product-controls">-->
           <!--            <button class="btn danger">-</button>-->
           <!--            <strong>123</strong>-->
@@ -52,7 +52,16 @@ export default {
       loading.value = false
     })
 
-    const products = computed(() => store.getters['products/getProducts'])
+    function byField(field) {
+      return (a, b) => a[field] < b[field] ? 1 : -1;
+    }
+
+    const products = computed(() => store.getters['products/getProducts']
+        .sort(byField('count'))
+    )
+
+
+
     const categories = computed(() => store.getters['categories/getCategories'])
     return {
       loading,
