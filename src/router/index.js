@@ -4,8 +4,8 @@ import Shop from '../views/Shop.vue'
 
 const routes = [
   {
-    path: '/',
-    name: 'Shop',
+    path: '/:search?',
+    name: 'shop',
     component: Shop,
     meta: {
       layout: 'main',
@@ -14,7 +14,7 @@ const routes = [
   },
   {
     path: '/cart',
-    name: 'Cart',
+    name: 'cart',
     component: () => import('../views/Cart.vue'),
     meta: {
       layout: 'main',
@@ -23,7 +23,7 @@ const routes = [
   },
   {
     path: '/product/:id',
-    name: 'Product',
+    name: 'product',
     component: () => import('../views/Product.vue'),
     meta: {
       layout: 'main',
@@ -32,7 +32,7 @@ const routes = [
   },
   {
     path: '/auth',
-    name: 'Auth',
+    name: 'auth',
     component: () => import('../views/Auth.vue'),
     meta: {
       layout: 'auth',
