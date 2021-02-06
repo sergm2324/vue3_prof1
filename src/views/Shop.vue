@@ -8,8 +8,8 @@
       </div>
 
       <ul class="list">
-        <li class="list-item">Все</li>
-        <li class="list-item" v-for = "cat in categories" :key="cat.id">
+        <li class="list-item" @click="currentType('all')">Все</li>
+        <li class="list-item" v-for = "cat in categories" :key="cat.id" @click="currentType(cat.type)">
           {{cat.title}}
         </li>
       </ul>
@@ -44,6 +44,7 @@ export default {
   setup() {
     const store = useStore()
     const loading = ref(false)
+    let currentCat = ref('fruit')
 
     onMounted(async () => {
       loading.value = true
@@ -52,12 +53,23 @@ export default {
       loading.value = false
     })
 
+    const currentType = function (type) {
+      currentCat.value = type
+    }
+
     function byField(field) {
       return (a, b) => a[field] < b[field] ? 1 : -1;
     }
 
     const products = computed(() => store.getters['products/getProducts']
         .sort(byField('count'))
+        .filter(product => {
+          if (product.category === currentCat.value) {
+            return product
+          } else if (currentCat.value === 'all') {
+            return product
+          }
+        })
     )
 
 
@@ -67,7 +79,9 @@ export default {
       loading,
       currency,
       products,
-      categories
+      categories,
+      currentCat,
+      currentType
     }
   },
   components: {AppPage, AppLoader}
