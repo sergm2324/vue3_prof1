@@ -3,7 +3,7 @@
   <div class="card" v-else>
     <div class="products-filter">
       <div class="form-control">
-        <input type="text" placeholder="Найти товар...">
+        <input type="text" placeholder="Найти товар..." v-model="search">
         <span class="form-control-clear">&times;</span>
       </div>
 
@@ -44,7 +44,8 @@ export default {
   setup() {
     const store = useStore()
     const loading = ref(false)
-    let currentCat = ref('fruit')
+    let currentCat = ref('all')
+    const search = ref('')
 
     onMounted(async () => {
       loading.value = true
@@ -70,6 +71,13 @@ export default {
             return product
           }
         })
+        .filter(product => {
+          if (product.title.toLowerCase().indexOf(search.value, 0) >= 0) {
+            return product
+          } else if (search.value === '') {
+            return product
+          }
+        })
     )
 
 
@@ -81,7 +89,8 @@ export default {
       products,
       categories,
       currentCat,
-      currentType
+      currentType,
+      search
     }
   },
   components: {AppPage, AppLoader}
