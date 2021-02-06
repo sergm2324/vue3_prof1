@@ -44,7 +44,7 @@ import AppPage from '../components/ui/AppPage'
 import {ref, computed, onMounted, reactive} from 'vue'
 import {useStore} from 'vuex'
 import {currency} from '../utils/currency'
-import {useRouter} from 'vue-router'
+import {useRoute, useRouter} from 'vue-router'
 import AppLoader from '../components/ui/AppLoader'
 
 export default {
@@ -53,17 +53,21 @@ export default {
     const loading = ref(false)
     let currentCat = ref('all')
     let search = ref(localStorage.getItem('SEARCH') ?? '')
+    const route = useRoute()
     const router = useRouter()
 
     onMounted(async () => {
       loading.value = true
       await store.dispatch('products/loadAllProducts')
       await store.dispatch('categories/loadAllCategories')
-      if (search) {
+      if (search.value) {
         router.push(`/search=${search.value}`)
       }
       loading.value = false
     })
+    if (!search.value && route.params.search.replace('search=', '')) {
+      search.value = route.params.search.replace('search=', '')
+    }
 
     const currentType = function (type) {
       currentCat.value = type
