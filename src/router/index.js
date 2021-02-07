@@ -22,12 +22,13 @@ const routes = [
     }
   },
   {
-    path: '/product/:id',
+    path: '/product/:productId?',
     name: 'product',
     component: () => import('../views/Product.vue'),
+    props: true,
     meta: {
       layout: 'main',
-      auth: true
+      auth: false
     }
   },
   {

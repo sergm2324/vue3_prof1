@@ -16,17 +16,19 @@
     </div>
     <div class="products-table">
       <div class="product-card" v-for = "product in products" :key="product.id" v-if="products.length">
+        <router-link :to="'/product/' + product.id">
         <div class="product-img">
           <img :src="product.img">
         </div>
+        </router-link>
         <h4 class="product-title">{{product.title}}</h4>
         <div class="text-center" v-if="product.count > 0">
-          <button class="btn">{{ currency(product.price) }}</button>
-          <!--          <div class="product-controls">-->
-          <!--            <button class="btn danger">-</button>-->
-          <!--            <strong>123</strong>-->
-          <!--            <button class="btn primary">+</button>-->
-          <!--          </div>-->
+          <button class="btn" @click="selectProduct(product.id)" v-if="currentProductId !== product.id">{{ currency(product.price) }}</button>
+                    <div class="product-controls" v-if="showProductControls && currentProductId === product.id">
+                      <button class="btn danger">-</button>
+                      <strong>123</strong>
+                      <button class="btn primary">+</button>
+                    </div>
         </div>
         <div class="text-center" v-else>
           Нет в наличии
@@ -53,6 +55,8 @@ export default {
     const loading = ref(false)
     let currentCat = ref(localStorage.getItem('CAT') ?? 'all')
     let search = ref(localStorage.getItem('SEARCH') ?? '')
+    let showProductControls = ref(false)
+    let currentProductId = ref(null)
     const route = useRoute()
     const router = useRouter()
 
@@ -80,6 +84,11 @@ export default {
 
     function byField(field) {
       return (a, b) => a[field] < b[field] ? 1 : -1;
+    }
+
+    const selectProduct = function (productId) {
+      showProductControls.value = true
+      currentProductId.value = productId
     }
 
     const products = computed(() => store.getters['products/getProducts']
@@ -118,7 +127,10 @@ export default {
       categories,
       currentCat,
       currentType,
-      search
+      search,
+      showProductControls,
+      currentProductId,
+      selectProduct
     }
   },
   components: {AppPage, AppLoader}

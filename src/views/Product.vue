@@ -1,15 +1,15 @@
 <template>
-  <app-page back center title="Свекла">
-    <img src="https://images.grocery.yandex.net/2756334/33a66b51989449f9918122a775885fbc/300x300.png" />
-    <p>Категория: <strong>Название категории</strong></p>
+  <app-page back :title="product['title']">
+    <img :src="product['img']" />
+    <p>Категория: <strong>{{product['category']}}</strong></p>
     <button class="btn">
-      123 руб
+      {{ currency(product['price']) }}
     </button>
-    <div class="product-controls in-card">
-      <button class="btn danger">-</button>
-      <strong>12</strong>
-      <button class="btn primary">+</button>
-    </div>
+<!--    <div class="product-controls in-card">-->
+<!--      <button class="btn danger">-</button>-->
+<!--      <strong>12</strong>-->
+<!--      <button class="btn primary">+</button>-->
+<!--    </div>-->
   </app-page>
   <h3 class="text-center text-white">
     Товара не найден.
@@ -18,7 +18,19 @@
 
 <script>
 import AppPage from '../components/ui/AppPage'
+import {computed} from 'vue'
+import { useStore } from 'vuex'
+import {currency} from '../utils/currency'
 export default {
+  props: ['productId'],
+  setup(props) {
+    const store = useStore()
+
+    return {
+      currency,
+      product: computed(() => store.getters['products/getProducts'].find(e => e.id === props.productId)).value,
+    }
+  },
   components: {AppPage}
 }
 </script>
