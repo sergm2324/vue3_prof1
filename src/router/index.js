@@ -32,6 +32,16 @@ const routes = [
     }
   },
   {
+    path: '/admins/:products?',
+    name: 'admin',
+    component: () => import('../views/Admin.vue'),
+    meta: {
+      layout: 'main',
+      auth: false
+    }
+  },
+
+  {
     path: '/auth',
     name: 'auth',
     component: () => import('../views/Auth.vue'),
