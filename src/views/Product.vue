@@ -1,5 +1,5 @@
 <template>
-  <app-page back :title="product['title']">
+  <app-page back :title="product['title']" v-if="product">
     <img :src="product['img']" />
     <p>Категория: <strong>{{product['category']}}</strong></p>
     <button class="btn">
@@ -11,7 +11,7 @@
 <!--      <button class="btn primary">+</button>-->
 <!--    </div>-->
   </app-page>
-  <h3 class="text-center text-white">
+  <h3 class="text-center text-white" v-else>
     Товара не найден.
   </h3>
 </template>
