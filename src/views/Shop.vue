@@ -51,7 +51,7 @@ export default {
   setup() {
     const store = useStore()
     const loading = ref(false)
-    let currentCat = ref('all')
+    let currentCat = ref(localStorage.getItem('CAT') ?? 'all')
     let search = ref(localStorage.getItem('SEARCH') ?? '')
     const route = useRoute()
     const router = useRouter()
@@ -61,7 +61,7 @@ export default {
       await store.dispatch('products/loadAllProducts')
       await store.dispatch('categories/loadAllCategories')
       if (search.value) {
-        router.push(`/?search=${search.value}`)
+        router.push(`/?search=${search.value}&category=${currentCat.value}`)
       }
       loading.value = false
     })
@@ -74,6 +74,10 @@ export default {
       currentCat.value = type
     }
 
+    if (route.query.category) {
+      currentCat.value = route.query.category
+    }
+
     function byField(field) {
       return (a, b) => a[field] < b[field] ? 1 : -1;
     }
@@ -81,6 +85,8 @@ export default {
     const products = computed(() => store.getters['products/getProducts']
         .sort(byField('count'))
         .filter(product => {
+          router.push(`/?search=${search.value}&category=${currentCat.value}`)
+          localStorage.setItem('CAT', currentCat.value)
           if (product.category === currentCat.value) {
             return product
           } else if (currentCat.value === 'all') {
@@ -90,7 +96,7 @@ export default {
         .filter(product => {
           if (product.title.toLowerCase().indexOf(search.value, 0) >= 0) {
             if (search.value) {
-              router.push(`/?search=${search.value}`)
+              router.push(`/?search=${search.value}&category=${currentCat.value}`)
               localStorage.setItem('SEARCH', search.value)
             } else {
               router.push('/')
