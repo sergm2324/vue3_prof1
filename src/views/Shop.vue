@@ -61,12 +61,13 @@ export default {
       await store.dispatch('products/loadAllProducts')
       await store.dispatch('categories/loadAllCategories')
       if (search.value) {
-        router.push(`/search=${search.value}`)
+        router.push(`/?search=${search.value}`)
       }
       loading.value = false
     })
-    if (!search.value && route.params.search.replace('search=', '')) {
-      search.value = route.params.search.replace('search=', '')
+
+    if (route.query.search) {
+      search.value = route.query.search
     }
 
     const currentType = function (type) {
@@ -88,8 +89,13 @@ export default {
         })
         .filter(product => {
           if (product.title.toLowerCase().indexOf(search.value, 0) >= 0) {
-            router.push(`/search=${search.value}`)
-            localStorage.setItem('SEARCH', search.value)
+            if (search.value) {
+              router.push(`/?search=${search.value}`)
+              localStorage.setItem('SEARCH', search.value)
+            } else {
+              router.push('/')
+              localStorage.removeItem('SEARCH')
+            }
             return product
           } else if (search.value === '') {
             return product
@@ -98,6 +104,7 @@ export default {
     )
 
     const categories = computed(() => store.getters['categories/getCategories'])
+
     return {
       loading,
       currency,
