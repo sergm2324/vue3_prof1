@@ -1,19 +1,8 @@
 <template>
   <app-loader v-if="loading" />
   <div class="card" v-else>
-    <div class="products-filter">
-      <div class="form-control">
-        <input type="text" placeholder="Найти товар..." v-model="search">
-        <span class="form-control-clear" @click="search = ''">&times;</span>
-      </div>
+    <ProductsFilter :categories="categories" @modelValue="currentCat=$event.currentCat; search=$event.search"/>
 
-      <ul class="list">
-        <li class="list-item" :class = "currentCat === 'all' ? 'active' : ''" @click="currentType('all')">Все</li>
-        <li class="list-item" :class = "currentCat === cat.type ? 'active' : ''" v-for = "cat in categories" :key="cat.id" @click="currentType(cat.type)">
-          {{cat.title}}
-        </li>
-      </ul>
-    </div>
     <div class="products-table">
       <div class="product-card" v-for = "product in products" :key="product.id" v-if="products.length">
         <router-link :to="'/product/' + product.id">
@@ -48,6 +37,7 @@ import {useStore} from 'vuex'
 import {currency} from '../utils/currency'
 import {useRoute, useRouter} from 'vue-router'
 import AppLoader from '../components/ui/AppLoader'
+import ProductsFilter from '@/components/products/ProductsFilter'
 
 export default {
   setup() {
@@ -133,7 +123,7 @@ export default {
       selectProduct
     }
   },
-  components: {AppPage, AppLoader}
+  components: {AppPage, AppLoader, ProductsFilter}
 }
 </script>
 
