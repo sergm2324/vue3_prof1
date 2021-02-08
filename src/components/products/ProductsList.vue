@@ -26,8 +26,28 @@
 </template>
 
 <script>
+import {ref, watch} from "vue"
+import {currency} from '@/utils/currency'
+
 export default {
-name: "ProductsList"
+name: "ProductsList",
+props: ['products'],
+emits: [],
+  setup(_, {emit}) {
+    let showProductControls = ref(false)
+    let currentProductId = ref(null)
+    const selectProduct = function (productId) {
+      showProductControls.value = true
+      currentProductId.value = productId
+    }
+
+    return {
+      currency,
+      showProductControls,
+      currentProductId,
+      selectProduct
+    }
+  }
 }
 </script>
 

@@ -2,31 +2,7 @@
   <app-loader v-if="loading" />
   <div class="card" v-else>
     <ProductsFilter :categories="categories" @modelValue="currentCat=$event.currentCat; search=$event.search"/>
-
-    <div class="products-table">
-      <div class="product-card" v-for = "product in products" :key="product.id" v-if="products.length">
-        <router-link :to="'/product/' + product.id">
-        <div class="product-img">
-          <img :src="product.img">
-        </div>
-        </router-link>
-        <h4 class="product-title">{{product.title}}</h4>
-        <div class="text-center" v-if="product.count > 0">
-          <button class="btn" @click="selectProduct(product.id)" v-if="currentProductId !== product.id">{{ currency(product.price) }}</button>
-                    <div class="product-controls" v-if="showProductControls && currentProductId === product.id">
-                      <button class="btn danger">-</button>
-                      <strong>123</strong>
-                      <button class="btn primary">+</button>
-                    </div>
-        </div>
-        <div class="text-center" v-else>
-          Нет в наличии
-        </div>
-      </div>
-      <div class="text-center" v-else>
-        Таких товаров нет.
-      </div>
-    </div>
+    <ProductsList :products="products"/>
   </div>
 </template>
 
@@ -34,10 +10,11 @@
 import AppPage from '../components/ui/AppPage'
 import {ref, computed, onMounted, reactive} from 'vue'
 import {useStore} from 'vuex'
-import {currency} from '../utils/currency'
+import {currency} from '@/utils/currency'
 import {useRoute, useRouter} from 'vue-router'
 import AppLoader from '../components/ui/AppLoader'
 import ProductsFilter from '@/components/products/ProductsFilter'
+import ProductsList from '@/components/products/ProductsList'
 
 export default {
   setup() {
@@ -45,8 +22,6 @@ export default {
     const loading = ref(false)
     let currentCat = ref(localStorage.getItem('CAT') ?? 'all')
     let search = ref(localStorage.getItem('SEARCH') ?? '')
-    let showProductControls = ref(false)
-    let currentProductId = ref(null)
     const route = useRoute()
     const router = useRouter()
 
@@ -74,11 +49,6 @@ export default {
 
     function byField(field) {
       return (a, b) => a[field] < b[field] ? 1 : -1;
-    }
-
-    const selectProduct = function (productId) {
-      showProductControls.value = true
-      currentProductId.value = productId
     }
 
     const products = computed(() => store.getters['products/getProducts']
@@ -118,12 +88,9 @@ export default {
       currentCat,
       currentType,
       search,
-      showProductControls,
-      currentProductId,
-      selectProduct
     }
   },
-  components: {AppPage, AppLoader, ProductsFilter}
+  components: {AppPage, AppLoader, ProductsFilter, ProductsList}
 }
 </script>
 
