@@ -10,7 +10,6 @@
 import AppPage from '../components/ui/AppPage'
 import {ref, computed, onMounted, reactive} from 'vue'
 import {useStore} from 'vuex'
-import {currency} from '@/utils/currency'
 import {useRoute, useRouter} from 'vue-router'
 import AppLoader from '../components/ui/AppLoader'
 import ProductsFilter from '@/components/products/ProductsFilter'
@@ -37,10 +36,6 @@ export default {
 
     if (route.query.search) {
       search.value = route.query.search
-    }
-
-    const currentType = function (type) {
-      currentCat.value = type
     }
 
     if (route.query.category) {
@@ -82,11 +77,9 @@ export default {
 
     return {
       loading,
-      currency,
       products,
       categories,
       currentCat,
-      currentType,
       search,
     }
   },
