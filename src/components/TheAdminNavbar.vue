@@ -7,6 +7,9 @@
         <router-link to="/admin/products">Инвентарь</router-link>
       </li>
       <li>
+        <router-link to="/admin/categories">Категории</router-link>
+      </li>
+      <li>
         <a href="#" @click.prevent="logout">Выход</a>
       </li>
     </ul>
