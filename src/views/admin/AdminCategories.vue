@@ -1,8 +1,28 @@
 <template>
   <app-loader v-if="loading" />
-  <div class="card" v-else>
-    Список категорий
-  </div>
+  <app-page title="Категории" v-else>
+    <template #header>
+      <button class="btn primary" @click="modal = true">Создать</button>
+    </template>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Название</th>
+        <th>Категория</th>
+        <th>Действие</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="(cat, idx) in categories" :key="cat.id">
+        <td>{{ idx + 1 }}</td>
+        <td>{{ cat.title }}</td>
+        <td>{{ cat.type }}</td>
+        <td><button class="btn">Открыть</button></td>
+      </tr>
+      </tbody>
+    </table>
+  </app-page>
 </template>
 
 <script>

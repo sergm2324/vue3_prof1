@@ -2,7 +2,7 @@
   <div class="breadcrumbs" v-if="back">
     <router-link to="/" class="text-white">Вернуться в магазин</router-link>
   </div>
-  <div class="card center">
+  <div class="card">
     <h1 class="card-title">
       {{title}}
       <slot name="header" />
