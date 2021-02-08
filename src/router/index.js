@@ -36,8 +36,8 @@ const routes = [
     name: 'admin',
     component: () => import('../views/Admin.vue'),
     meta: {
-      layout: 'main',
-      auth: false
+      layout: 'admin',
+      auth: true
     }
   },
 
