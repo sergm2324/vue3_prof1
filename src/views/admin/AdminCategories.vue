@@ -22,6 +22,11 @@
       </tr>
       </tbody>
     </table>
+    <teleport to="body">
+      <app-modal v-if="modal" title="Добавить категорию" @close="modal = false">
+        <cat-modal @created="modal = false" />
+      </app-modal>
+    </teleport>
   </app-page>
 </template>
 
@@ -30,11 +35,14 @@ import AppPage from '@/components/ui/AppPage'
 import {ref, computed, onMounted, reactive} from 'vue'
 import {useStore} from 'vuex'
 import AppLoader from '@/components/ui/AppLoader'
+import AppModal from '@/components/ui/AppModal'
+import CatModal from '@/components/request/CatModal'
 
 export default {
   setup() {
     const store = useStore()
     const loading = ref(false)
+    const modal = ref(false)
 
     onMounted(async () => {
       loading.value = true
@@ -47,9 +55,10 @@ export default {
     return {
       loading,
       categories,
+      modal
     }
   },
-  components: {AppPage, AppLoader}
+  components: {AppPage, AppLoader, AppModal, CatModal}
 }
 </script>
 

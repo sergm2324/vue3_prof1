@@ -28,8 +28,12 @@
       </tr>
       </tbody>
     </table>
+    <teleport to="body">
+      <app-modal v-if="modal" title="Добавить инвентарь" @close="modal = false">
+        <product-modal @created="modal = false" />
+      </app-modal>
+    </teleport>
   </app-page>
-
 </template>
 
 <script>
@@ -38,11 +42,14 @@ import {currency} from '@/utils/currency'
 import {ref, computed, onMounted, reactive} from 'vue'
 import {useStore} from 'vuex'
 import AppLoader from '@/components/ui/AppLoader'
+import AppModal from '@/components/ui/AppModal'
+import ProductModal from '@/components/request/ProductModal'
 
 export default {
   setup() {
     const store = useStore()
     const loading = ref(false)
+    const modal = ref(false)
 
     onMounted(async () => {
       loading.value = true
@@ -56,9 +63,10 @@ export default {
       loading,
       products,
       currency,
+      modal
     }
   },
-  components: {AppPage, AppLoader}
+  components: {AppPage, AppLoader, AppModal, ProductModal}
 }
 </script>
 
