@@ -1,21 +1,22 @@
 <template>
   <app-loader v-if="loading" />
-  <app-page title="Админка" v-else>
-    <router-view></router-view>
-  </app-page>
+  <div class="card" v-else>
+      Список инвентаря
+  </div>
 </template>
 
 <script>
-import AppPage from '../components/ui/AppPage'
+import AppPage from '@/components/ui/AppPage'
 import {ref, computed, onMounted, reactive} from 'vue'
 import {useStore} from 'vuex'
-import {currency} from '@/utils/currency'
+import {useRoute, useRouter} from 'vue-router'
 import AppLoader from '@/components/ui/AppLoader'
 
 export default {
   setup() {
     const store = useStore()
     const loading = ref(false)
+    const router = useRouter()
 
     onMounted(async () => {
       loading.value = true
@@ -23,10 +24,8 @@ export default {
       loading.value = false
     })
 
-
     return {
       loading,
-      currency,
     }
   },
   components: {AppPage, AppLoader}
@@ -34,5 +33,9 @@ export default {
 </script>
 
 <style scoped>
-
+  .card {
+    border-radius: 4px;
+    padding: 0;
+    display: flex;
+  }
 </style>

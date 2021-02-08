@@ -4,10 +4,7 @@
 
     <ul class="navbar-menu">
       <li>
-        <router-link to="/">Магазин</router-link>
-      </li>
-      <li>
-        <router-link to="/cart">Корзина</router-link>
+        <router-link to="/admin/products">Инвентарь</router-link>
       </li>
       <li>
         <a href="#" @click.prevent="logout">Выход</a>
