@@ -1,6 +1,6 @@
 <template>
   <app-loader v-if="loading" />
-  <app-page title="Админка" v-else>
+  <app-page v-else>
     <router-view></router-view>
   </app-page>
 </template>

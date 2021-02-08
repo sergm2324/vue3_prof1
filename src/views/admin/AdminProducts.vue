@@ -1,12 +1,35 @@
 <template>
+  <h2 class="card-title">Инвентарь</h2>
   <app-loader v-if="loading" />
-  <div class="card" v-else>
-      Список инвентаря
-  </div>
+  <table class="table" v-else>
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Название</th>
+      <th>Изображение</th>
+      <th>Цена</th>
+      <th>Категория</th>
+      <th>Количество</th>
+      <th>Действие</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr v-for="(product, idx) in products" :key="product.id">
+      <td>{{ idx + 1 }}</td>
+      <td>{{ product.title }}</td>
+      <td><img :src="product.img" width="30"></td>
+      <td>{{ currency(product.price) }}</td>
+      <td>{{ product.category }}</td>
+      <td>{{ product.count }}</td>
+      <td><button class="btn">Открыть</button></td>
+    </tr>
+    </tbody>
+  </table>
 </template>
 
 <script>
 import AppPage from '@/components/ui/AppPage'
+import {currency} from '@/utils/currency'
 import {ref, computed, onMounted, reactive} from 'vue'
 import {useStore} from 'vuex'
 import AppLoader from '@/components/ui/AppLoader'
@@ -26,7 +49,8 @@ export default {
 
     return {
       loading,
-      products
+      products,
+      currency,
     }
   },
   components: {AppPage, AppLoader}
