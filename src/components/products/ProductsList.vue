@@ -8,7 +8,9 @@
       </router-link>
       <h4 class="product-title">{{product.title}}</h4>
       <div class="text-center" v-if="product.count > 0">
-        <button class="btn" @click="selectProduct(product.id)" v-if="!current.find(e => e.id === product.id)">{{ currency(product.price) }}</button>
+        <button class="btn" @click="selectProduct(product.id)"
+                v-if="!current.find(e => e.id === product.id)"
+        >{{ currency(product.price) }}</button>
         <div class="product-controls" v-if="current.find(e => e.id === product.id)">
           <button class="btn danger">-</button>
           <strong>123</strong>
