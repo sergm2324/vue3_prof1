@@ -4,7 +4,7 @@ import * as yup from 'yup'
 export function useProductForm(fn) {
   const {isSubmitting, handleSubmit} = useForm({
     initialValues: {
-      cat: 'fruit'
+      category: 'fruit'
     }
   })
 
@@ -32,12 +32,11 @@ export function useProductForm(fn) {
           .required('Введите количество')
           .min(0, 'Количество не может быть меньше 0')
   )
-  const {value: cat} = useField('cat')
+  const {value: category} = useField('category')
 
   const onSubmit = handleSubmit(fn)
 
   return {
-    status,
     isSubmitting,
     onSubmit,
     title,
@@ -52,6 +51,6 @@ export function useProductForm(fn) {
     count,
     cError,
     cBlur,
-    cat
+    category
   }
 }

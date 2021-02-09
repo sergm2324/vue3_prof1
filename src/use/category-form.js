@@ -11,8 +11,8 @@ export function useCategoryForm(fn) {
       .trim()
       .required('Введите название товара')
   )
-  const {value: cat, errorMessage: cError, handleBlur: cBlur} = useField(
-      'cat',
+  const {value: type, errorMessage: cError, handleBlur: cBlur} = useField(
+      'type',
       yup.string()
           .trim()
           .required('Введите категорию')
@@ -26,7 +26,7 @@ export function useCategoryForm(fn) {
     title,
     tBlur,
     tError,
-    cat,
+    type,
     cBlur,
     cError,
   }

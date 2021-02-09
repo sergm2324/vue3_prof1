@@ -19,8 +19,8 @@
     </div>
 
     <div class="form-control">
-      <label for="cat">Категория</label>
-      <select id="cat" v-model="cat">
+      <label for="category">Категория</label>
+      <select id="category" v-model="category">
         <option value="fruit">Фрукты</option>
         <option value="vegetable">Овощи</option>
         <option value="meat">Мясо</option>
@@ -51,7 +51,7 @@ export default {
     const store = useStore()
 
     const submit = async values => {
-      await store.dispatch('request/create', values)
+      await store.dispatch('products/create', values)
       emit('created')
     }
 

@@ -7,8 +7,8 @@
     </div>
 
     <div class="form-control" :class="{invalid: cError}">
-      <label for="title">Категория</label>
-      <input type="text" id="cat" v-model="cat" @blur="cBlur">
+      <label for="type">Категория</label>
+      <input type="text" id="type" v-model="type" @blur="cBlur">
       <small v-if="cError">{{cError}}</small>
     </div>
 
@@ -27,7 +27,7 @@ export default {
     const store = useStore()
 
     const submit = async values => {
-      await store.dispatch('request/create', values)
+      await store.dispatch('categories/create', values)
       emit('created')
     }
 
