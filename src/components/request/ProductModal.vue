@@ -21,12 +21,7 @@
     <div class="form-control">
       <label for="category">Категория</label>
       <select id="category" v-model="category">
-        <option value="fruit">Фрукты</option>
-        <option value="vegetable">Овощи</option>
-        <option value="meat">Мясо</option>
-        <option value="fish">Рыба</option>
-        <option value="greens">Зелень</option>
-        <option value="berries">Ягоды</option>
+        <option v-for="cat in categories" :key="cat.id" :value="cat.type">{{cat.title}}</option>
       </select>
     </div>
 
@@ -44,6 +39,7 @@
 
 import {useProductForm} from '@/use/product-form'
 import {useStore} from 'vuex'
+import {computed} from "vue"
 
 export default {
   emits: ['created'],
@@ -55,8 +51,11 @@ export default {
       emit('created')
     }
 
+    const categories = computed(() => store.getters['categories/getCategories'])
+
     return {
-      ...useProductForm(submit)
+      ...useProductForm(submit),
+      categories
     }
   }
 }

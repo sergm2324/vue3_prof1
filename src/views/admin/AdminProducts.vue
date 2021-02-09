@@ -54,6 +54,7 @@ export default {
     onMounted(async () => {
       loading.value = true
       await store.dispatch('products/loadAllProducts')
+      await store.dispatch('categories/loadAllCategories')
       loading.value = false
     })
 
