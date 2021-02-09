@@ -13,7 +13,7 @@
         >{{ currency(product.price) }}</button>
         <div class="product-controls" v-if="current.find(e => e.id === product.id)">
           <button class="btn danger">-</button>
-          <strong>123</strong>
+          <strong>{{product.count}} шт.</strong>
           <button class="btn primary">+</button>
         </div>
       </div>
