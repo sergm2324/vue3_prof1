@@ -1,9 +1,9 @@
 <template>
   <form @submit.prevent="onSubmit">
-    <div class="form-control" :class="{invalid: fError}">
-      <label for="fio">ФИО</label>
-      <input type="text" id="fio" v-model="fio" @blur="fBlur">
-      <small v-if="fError">{{fError}}</small>
+    <div class="form-control" :class="{invalid: tError}">
+      <label for="title">Название</label>
+      <input type="text" id="title" v-model="title" @blur="tBlur">
+      <small v-if="tError">{{tError}}</small>
     </div>
 
     <div class="form-control" :class="{invalid: pError}">
@@ -34,7 +34,7 @@
 
 <script>
 
-import {useRequestForm} from '@/use/request-form'
+import {useCategoryForm} from '@/use/category-form'
 import {useStore} from 'vuex'
 
 export default {
@@ -48,7 +48,7 @@ export default {
     }
 
     return {
-      ...useRequestForm(submit)
+      ...useCategoryForm(submit)
     }
   }
 }

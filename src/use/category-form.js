@@ -1,18 +1,18 @@
 import {useField, useForm} from 'vee-validate'
 import * as yup from 'yup'
 
-export function useRequestForm(fn) {
+export function useCategoryForm(fn) {
   const {isSubmitting, handleSubmit} = useForm({
     initialValues: {
       status: 'active'
     }
   })
 
-  const {value: fio, errorMessage: fError, handleBlur: fBlur} = useField(
-    'fio',
+  const {value: title, errorMessage: tError, handleBlur: tBlur} = useField(
+    'title',
     yup.string()
       .trim()
-      .required('Введите ФИО клиента')
+      .required('Введите название товара')
   )
   const {value: phone, errorMessage: pError, handleBlur: pBlur} = useField(
     'phone',
@@ -34,9 +34,9 @@ export function useRequestForm(fn) {
     status,
     isSubmitting,
     onSubmit,
-    fio,
-    fBlur,
-    fError,
+    title,
+    tBlur,
+    tError,
     phone,
     amount,
     pError,
