@@ -7,7 +7,7 @@
       </button>
       </router-link>
       <li v-for="(p, idx) in pageCount" @click="pageNumber=idx">
-        <router-link class="a" :class="pageNumber === idx ? 'act' : ''" :to="`?page=${idx}`">{{idx}}</router-link>
+        <router-link class="a" :class="pageNumber === idx ? 'act' : ''" :to="`?page=${idx}`">{{idx+1}}</router-link>
       </li>
       <router-link to="?page=next">
         <button class="btn" @click="nextPage" :disabled="pageNumber === pageCount - 1">
