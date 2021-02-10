@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import AppPage from '../components/ui/AppPage'
 import {ref, computed, onMounted, reactive} from 'vue'
 import {useStore} from 'vuex'
 import {useRoute, useRouter} from 'vue-router'
@@ -83,7 +82,7 @@ export default {
       search,
     }
   },
-  components: {AppPage, AppLoader, ProductsFilter, ProductsList}
+  components: {AppLoader, ProductsFilter, ProductsList}
 }
 </script>
 
