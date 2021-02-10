@@ -79,55 +79,41 @@ export default {
 #pagination-flickr {
   border:0; margin:0; padding:0;
   display: flex;
-  justify-content: center; /*Центрирование по горизонтали*/
-  align-items: center;     /*Центрирование по вертикали */
+  justify-content: center;
 }
-ul{border:0; margin:0; padding:0;}
 
 #pagination-flickr li{
   border:0; margin:0; padding:0;
   font-size:16px;
   list-style:none;
 }
+
 #pagination-flickr .a{
   border:solid 1px #DDDDDD;
   margin-right:2px;
 }
-#pagination-flickr .previous-off,
-#pagination-flickr .next {
-  color:#666666;
-  display:block;
-  float:left;
-  font-weight:bold;
-  padding:3px 4px;
-  border:solid 1px #DDDDDD;
-  margin-right:2px;
-}
-#pagination-flickr .next .a,
-#pagination-flickr .previous .a {
-  font-weight:bold;
-  border:solid 1px #FFFFFF;
-}
 
 #pagination-flickr .a:link,
-#pagination-flickr .a:visited,
-#pagination-flickr .previous-off:visited,
-#pagination-flickr .next:visited
+#pagination-flickr .a:visited
 {
   color:#0063e3;
   display:block;
   float:left;
-  padding:3px 9px;
+  padding:3px 12px;
   text-decoration:none;
 }
+
 #pagination-flickr .act:visited
 {
   border:solid 1px #ff0084;
 }
-#pagination-flickr .a:hover,
-#pagination-flickr .previous-off:hover,
-#pagination-flickr .next:hover {
+
+#pagination-flickr .a:hover {
   border:solid 1px #666666;
+}
+
+.btn {
+  margin-right: 2px;
 }
 
 
