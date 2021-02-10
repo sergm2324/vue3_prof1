@@ -17,7 +17,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="(product, idx) in products" :key="product.id">
+      <tr v-for="(product, idx) in paginatedData" :key="product.id">
         <td>{{ idx + 1 }}</td>
         <td>{{ product.title }}</td>
         <td><img :src="product.img" width="30"></td>
@@ -33,6 +33,7 @@
         <product-modal @created="modal = false" />
       </app-modal>
     </teleport>
+    <ThePagination :listData="products" :size="5" @paginatedData="paginatedData=$event"/>
   </app-page>
 </template>
 
@@ -44,12 +45,14 @@ import {useStore} from 'vuex'
 import AppLoader from '@/components/ui/AppLoader'
 import AppModal from '@/components/ui/AppModal'
 import ProductModal from '@/components/request/ProductModal'
+import ThePagination from '@/components/ThePagination'
 
 export default {
   setup() {
     const store = useStore()
     const loading = ref(false)
     const modal = ref(false)
+    const paginatedData= ref()
 
     onMounted(async () => {
       loading.value = true
@@ -64,10 +67,11 @@ export default {
       loading,
       products,
       currency,
-      modal
+      modal,
+      paginatedData
     }
   },
-  components: {AppPage, AppLoader, AppModal, ProductModal}
+  components: {AppPage, AppLoader, AppModal, ProductModal, ThePagination}
 }
 </script>
 
