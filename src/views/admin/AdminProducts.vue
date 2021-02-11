@@ -33,7 +33,7 @@
         <product-modal @created="modal = false" />
       </app-modal>
     </teleport>
-    <ThePagination :listData="products" :size="5" @paginatedData="paginatedData=$event"/>
+    <AppPagination :listData="products" :size="5" @paginatedData="paginatedData=$event"/>
   </app-page>
 </template>
 
@@ -45,7 +45,7 @@ import {useStore} from 'vuex'
 import AppLoader from '@/components/ui/AppLoader'
 import AppModal from '@/components/ui/AppModal'
 import ProductModal from '@/components/request/ProductModal'
-import ThePagination from '@/components/ThePagination'
+import AppPagination from '../../components/ui/AppPagination'
 
 export default {
   setup() {
@@ -71,7 +71,7 @@ export default {
       paginatedData
     }
   },
-  components: {AppPage, AppLoader, AppModal, ProductModal, ThePagination}
+  components: {AppPagination, AppPage, AppLoader, AppModal, ProductModal}
 }
 </script>
 
