@@ -33,6 +33,7 @@ export default {
     padding: 0;
     margin: 0;
     display: flex;
+    justify-content: center;
   }
 
   .pagination-item > button {
