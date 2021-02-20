@@ -17,7 +17,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="(product, idx) in paginatedData" :key="product.id">
+      <tr v-for="(product, idx) in products" :key="product.id">
         <td>{{ idx + 1 }}</td>
         <td>{{ product.title }}</td>
         <td><img :src="product.img" width="30"></td>
@@ -28,31 +28,41 @@
       </tr>
       </tbody>
     </table>
+    <app-pagination v-model="page" :count="allProducts.length" :size="PAGE_SIZE" />
+
     <teleport to="body">
       <app-modal v-if="modal" title="Добавить инвентарь" @close="modal = false">
         <product-modal @created="modal = false" />
       </app-modal>
     </teleport>
-    <AppPagination :listData="products" :size="5" @paginatedData="paginatedData=$event"/>
   </app-page>
 </template>
 
 <script>
 import AppPage from '@/components/ui/AppPage'
 import {currency} from '@/utils/currency'
-import {ref, computed, onMounted, reactive} from 'vue'
+import {ref, computed, onMounted, reactive, watch} from 'vue'
 import {useStore} from 'vuex'
+import {useRouter, useRoute} from 'vue-router'
 import AppLoader from '@/components/ui/AppLoader'
 import AppModal from '@/components/ui/AppModal'
 import ProductModal from '@/components/request/ProductModal'
 import AppPagination from '../../components/ui/AppPagination'
+import chunk from 'lodash.chunk'
 
 export default {
   setup() {
+    const router = useRouter()
+    const route = useRoute()
     const store = useStore()
     const loading = ref(false)
     const modal = ref(false)
-    const paginatedData= ref()
+    const page = ref(route.query.page ? +route.query.page : 1)
+    const _setPage = () => router.replace({query: {page: page.value}})
+
+    onMounted(_setPage)
+
+    watch(page, _setPage)
 
     onMounted(async () => {
       loading.value = true
@@ -61,14 +71,19 @@ export default {
       loading.value = false
     })
 
-    const products = computed(() => store.getters['products/getProducts'])
+    const PAGE_SIZE = 5
+
+    const allProducts = computed(() => store.getters['products/getProducts'])
+    const products = computed(() => chunk(allProducts.value, PAGE_SIZE)[page.value - 1])
 
     return {
       loading,
+      allProducts,
       products,
       currency,
       modal,
-      paginatedData
+      page,
+      PAGE_SIZE
     }
   },
   components: {AppPagination, AppPage, AppLoader, AppModal, ProductModal}
@@ -76,9 +91,5 @@ export default {
 </script>
 
 <style scoped>
-  .card {
-    border-radius: 4px;
-    padding: 0;
-    display: flex;
-  }
+
 </style>
