@@ -4,11 +4,7 @@ import {useStore} from 'vuex'
 export function useProductCart(defaultId) {
   const store = useStore()
 
-  if (store.getters['cart/cart']) {
-    const count = computed(() => store.getters['cart/cart'][defaultId] ?? 0)
-  }
-
-  const count = 0
+  const count = computed(() => store.getters['cart/cart'][defaultId] ?? 0)
 
   const add = (prodId) => store.commit('cart/add', prodId)
 
