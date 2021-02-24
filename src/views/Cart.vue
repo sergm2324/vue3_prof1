@@ -52,7 +52,7 @@ export default {
     const {total} = useCartPage()
 
     onMounted(async () => {
-      await store.dispatch('product/load')
+      await store.dispatch('products/loadAllProducts')
       loading.value = false
     })
 
