@@ -20,7 +20,7 @@
 import AppPage from '../components/ui/AppPage'
 import {computed} from 'vue'
 import { useStore } from 'vuex'
-import {currency} from '../utils/currency'
+import {currency} from '@/utils/currency'
 export default {
   props: ['productId'],
   setup(props) {

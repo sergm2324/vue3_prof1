@@ -48,7 +48,10 @@ export default {
     },
     getters: {
         getProducts(state) {
-            return state.products
+            return [
+                ...state.products.filter(p => p.count !== 0),
+                ...state.products.filter(p => p.count === 0)
+            ]
         },
     }
 }

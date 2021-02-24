@@ -2,13 +2,21 @@
   <div class="products-filter">
     <div class="form-control">
       <input type="text" placeholder="Найти товар..." v-model="search">
-      <span class="form-control-clear" @click="search = ''">&times;</span>
+      <span class="form-control-clear" v-if="search.length" @click="search = ''">&times;</span>
     </div>
 
     <ul class="list">
-      <li class="list-item" :class = "currentCat === 'all' ? 'active' : ''" @click="currentType('all')">Все</li>
-      <li class="list-item" :class = "currentCat === cat.type ? 'active' : ''" v-for = "cat in categories" :key="cat.id" @click="currentType(cat.type)">
-        {{cat.title}}
+      <li class="list-item" :class="{active: !category}" @click="category = null">
+        Все
+      </li>
+      <li
+          class="list-item"
+          @click="category = c.type"
+          :class="{active: category === c.type}"
+          v-for="c in categories"
+          :key="c.id"
+      >
+        {{c.title}}
       </li>
     </ul>
   </div>
@@ -16,34 +24,36 @@
 
 <script>
 import {ref, watch} from 'vue'
+import {useRouter} from 'vue-router'
+
 export default {
-name: "ProductsFilter",
-  props: ['categories'],
-  emits: ['modelValue'],
-  setup(_, {emit}) {
-    let currentCat = ref(localStorage.getItem('CAT') ?? 'all')
-    let search = ref(localStorage.getItem('SEARCH') ?? '')
+  props: ['modelValue', 'categories'],
+  emits: ['update:modelValue'],
+  setup({modelValue, categories}, {emit}) {
+    const router = useRouter()
+    const search = ref(modelValue.search ?? '')
+    const category =  ref(modelValue.category)
 
-    const currentType = function (type) {
-      currentCat.value = type
-    }
-
-    watch([currentCat, search], values => {
-      emit('modelValue', {
-        currentCat: values[0],
-        search: values[1]
+    watch([search, category], ([sv, cv]) => {
+      const query = {}
+      if (sv) {
+        query['search'] = sv
+      }
+      if (cv) {
+        query['category'] = cv
+      }
+      router.replace({query})
+      emit('update:modelValue', {
+        search: sv,
+        category: cv
       })
     })
 
     return {
-      currentCat,
       search,
-      currentType
+      category,
+      categories
     }
   }
 }
 </script>
-
-<style scoped>
-
-</style>

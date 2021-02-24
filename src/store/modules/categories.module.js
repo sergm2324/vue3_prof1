@@ -17,18 +17,10 @@ export default {
         }
     },
     actions: {
-        async loadAllCategories({ commit, dispatch }) {
-            try {
-                const url = 'http://localhost:3000/categories'
-                const {data} = await axios.get(url)
-                commit('loadCategories', data)
-            } catch (e) {
-                dispatch('setMessage', {
-                    value: error(e.response.data.error.message),
-                    type: 'danger'
-                }, {root: true})
-                throw new Error()
-            }
+        async loadAllCategories({ commit }) {
+            const url = 'http://localhost:3000/categories'
+            const {data} = await axios.get(url)
+            commit('loadCategories', data)
         },
         async create({ commit, dispatch }, payload) {
             try {
